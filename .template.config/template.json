@@ -1,0 +1,42 @@
+{
+  "$schema": "http://json.schemastore.org/template",
+  "author": "Pawan Kumar Rai",
+  "classifications": ["Web", "API", "Solution"],
+  "identity": "SEW.SmartWX.Solution",
+  "name": "Api Solution Template",
+  "shortName": "smartwxapi",
+  "sourceName": "QuickStart",
+  "preferNameDirectory": true,
+  "tags": {
+    "language": "C#",
+    "type": "solution"
+  },
+  "sources": [
+    {
+      "modifiers": [
+        {
+          "exclude": [
+            "**/bin/**",
+            "**/obj/**",
+            "**/.vs/**",
+            "**/.git/**"
+          ]
+        }
+      ]
+    }
+  ],
+  "symbols": {
+    "IncludeTests": {
+      "type": "parameter",
+      "dataType": "bool",
+      "defaultValue": "true",
+      "description": "Include test projects"
+    },
+    "UseEntityFramework": {
+      "type": "parameter", 
+      "dataType": "bool",
+      "defaultValue": "true",
+      "description": "Include Entity Framework packages"
+    }
+  }
+}

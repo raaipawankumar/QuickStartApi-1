@@ -1,0 +1,24 @@
+@QuickStart.Api_HostAddress = http://localhost:5110
+
+GET {{QuickStart.Api_HostAddress }}/api/v1/Settings/basic
+
+### Languages api
+GET {{QuickStart.Api_HostAddress }}/api/v1/Settings/languages
+
+###
+GET {{QuickStart.Api_HostAddress }}/api/v1/languages/72F15CDA-9DC9-4D69-8356-0B46E3A898CB
+
+###
+
+PUT {{QuickStart.Api_HostAddress}}/api/v1/languages/425617a7-39db-404b-aec1-474f8494d29a
+Content-Type: application/json
+
+{
+    "id": "425617a7-39db-404b-aec1-474f8494d29a",
+    "name": "Hindi",
+    "code": "In",
+    "description": null,
+    "createdBy": 1,
+    "status": true,
+    "isDefault": false
+  }
