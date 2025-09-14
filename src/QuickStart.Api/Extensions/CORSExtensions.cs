@@ -5,7 +5,7 @@ namespace QuickStart.Api.Extensions;
 public static class CORSExtensions
 {
     public const string DefaultPolicyName = "default";
-    public static IServiceCollection AddConfigureCors(this IServiceCollection services, ConfigurationManager configuration)
+    public static IServiceCollection AddCORSWithConfiguration(this IServiceCollection services, ConfigurationManager configuration)
     {
         services.AddCors(options =>
         {

@@ -7,7 +7,8 @@ public static class ApiVesioningExtensions
 {
     const string ApiVersionQueryStringKey = "api-version";
     const string ApiVersionHeaderKey = "X-Api-Version";
-    public static IServiceCollection AddConfigureVersioning(this IServiceCollection services)
+    public static IServiceCollection AddVersioningWithConfiguration(
+        this IServiceCollection services)
     {
         services.AddApiVersioning(options =>
         {

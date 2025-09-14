@@ -10,21 +10,19 @@ using Serilog;
 try
 {
     var builder = WebApplication.CreateBuilder(args);
-    builder.SetupSerilog();
+    builder.AddSerilogWithConfiguration();
     Log.Information("SmartWX admin api started");
 
     builder.Services
     .AddHttpContextAccessor()
     .AddEndpointsApiExplorer()
-    .AddConfigureVersioning()
-    .AddConfigureSwaggerGen()
-    .AddConfigureCors(builder.Configuration)
-    .AddConfigureDbContext(builder.Configuration)
+    .AddVersioningWithConfiguration()
+    .AddSwaggerGenWithConfiguration()
+    .AddCORSWithConfiguration(builder.Configuration)
+    .AddDBContextWithConfiguration(builder.Configuration)
+    .AddHealthCheckWithConfiguration(builder.Configuration)
     .AddMemoryCache()
-
-    .AddScoped<ExceptionHandlingMiddleware>()
-    .AddScoped<AddCorreltationIdMiddleware>()
-    .AddSecurityMiddleware(builder.Configuration)
+    .AddMiddlewaresWithConfiguration(builder.Configuration)
     .AddScoped<IAuditContext, AuditContext>()
     .AddApplicationServices()
     .AddEndpoints(Assembly.GetExecutingAssembly());
@@ -45,6 +43,7 @@ try
     app.UseMiddleware<SecurityMiddleware>();
     app.UseCors(CORSExtensions.DefaultPolicyName);
     app.UseSerilogRequestLogging();
+    app.MapHealthCheckWithConfiguration();
     app.MapApplicationEndpoints();
     app.Run();
     return 0;

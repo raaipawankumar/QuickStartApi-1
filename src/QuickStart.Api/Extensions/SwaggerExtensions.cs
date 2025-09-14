@@ -8,7 +8,7 @@ namespace QuickStart.Api.Extensions;
 
 public static class SwaggerExtensions
 {
-    public static IServiceCollection AddConfigureSwaggerGen(this IServiceCollection services)
+    public static IServiceCollection AddSwaggerGenWithConfiguration(this IServiceCollection services)
     {
         services.ConfigureOptions<SwaggerConfiguration>();
         services.AddSwaggerGen();
@@ -27,6 +27,6 @@ public static class SwaggerExtensions
         }
 
     });
-    return app;
+        return app;
     }
 }

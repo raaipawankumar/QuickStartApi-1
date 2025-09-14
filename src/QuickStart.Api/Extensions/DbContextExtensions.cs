@@ -5,7 +5,7 @@ namespace QuickStart.Api.Extensions;
 
 public static class DbContextExtensions
 {
-    public static IServiceCollection AddConfigureDbContext(this IServiceCollection services,
+    public static IServiceCollection AddDBContextWithConfiguration(this IServiceCollection services,
      ConfigurationManager configuration)
     {
         services.AddDbContext<SmartWxReadOnlyContext>(options =>
@@ -13,11 +13,11 @@ public static class DbContextExtensions
             var connectionString = configuration.GetConnectionString("smartwx_connection_string");
             options.UseSqlServer(connectionString);
         });
-         services.AddDbContext<SmartWxWriteOnlyContext>(options =>
-        {
-            var connectionString = configuration.GetConnectionString("smartwx_connection_string");
-            options.UseSqlServer(connectionString);
-        });
+        services.AddDbContext<SmartWxWriteOnlyContext>(options =>
+       {
+           var connectionString = configuration.GetConnectionString("smartwx_connection_string");
+           options.UseSqlServer(connectionString);
+       });
         return services;
     }
 

@@ -3,9 +3,10 @@ using Serilog;
 using Serilog.Debugging;
 
 namespace QuickStart.Api.Extensions;
+
 public static class SerilogExtensions
 {
-  public static void SetupSerilog(
+  public static void AddSerilogWithConfiguration(
     this WebApplicationBuilder builder, string settingsFile = "serilog.json")
   {
     SelfLog.Enable(message => Debug.WriteLine(message));
@@ -18,20 +19,20 @@ public static class SerilogExtensions
         .AddJsonFile($"serilog.{environment}.json", optional: true, reloadOnChange: true)
         .Build();
 
-        Log.Logger = new LoggerConfiguration()
-        .ReadFrom.Configuration(configuration)
-        .CreateLogger();
+      Log.Logger = new LoggerConfiguration()
+      .ReadFrom.Configuration(configuration)
+      .CreateLogger();
 
       builder.Host.UseSerilog((context, loggerConfig) =>
         loggerConfig.ReadFrom.Configuration(configuration));
-     
+
     }
     catch (Exception ex)
     {
       Console.WriteLine($"Failed to configure Serilog. Message: {ex.Message}");
       Console.WriteLine($"Failed to configure Serilog. Stack Trace: {ex.StackTrace}");
-      
+
     }
-    
+
   }
 }
