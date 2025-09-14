@@ -1,3 +1,4 @@
+using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 namespace QuickStart.Api.Extensions;
@@ -13,6 +14,9 @@ public static class HealthcheckExtensions
       healthQuery: "SELECT 1;",
       failureStatus: HealthStatus.Unhealthy
     );
+
+    services.AddHealthChecksUI().AddInMemoryStorage();
+
     return services;
   }
   public static IEndpointRouteBuilder MapHealthCheckWithConfiguration(this IEndpointRouteBuilder endpoints)
@@ -20,12 +24,9 @@ public static class HealthcheckExtensions
     endpoints.MapHealthChecks("/health", new HealthCheckOptions
     {
       Predicate = (_) => true,
-      ResponseWriter = (context, report) =>
-        {
-          context.Response.ContentType = "application/json";
-          return context.Response.WriteAsJsonAsync(report);
-        }
+      ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
     });
+    endpoints.MapHealthChecksUI(options => options.UIPath = "/health-ui");
     return endpoints;
   }
 }

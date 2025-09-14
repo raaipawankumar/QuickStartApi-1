@@ -11,7 +11,7 @@ namespace QuickStart.Api.Endpoints;
 
 public class RoleEndpoints : IEndpoint
 {
-    
+
     public void Map(IEndpointRouteBuilder app)
     {
         var group = app.MapGroup("/roles").WithTags("Identity");
@@ -20,9 +20,9 @@ public class RoleEndpoints : IEndpoint
         group.MapPost("/", AddOrUpdate).MapToApiVersion(new ApiVersion(1));
         group.MapDelete("/{id}", Delete).MapToApiVersion(new ApiVersion(1));
     }
-private async Task<IResult> GetAll(
-        [FromServices] IHandlerContext context,
-        [FromServices] ILogger<GetRolesWithSummary> logger)
+    private async Task<IResult> GetAll(
+            [FromServices] IHandlerContext context,
+            [FromServices] ILogger<GetRolesWithSummary> logger)
     {
         var handler = new GetRolesWithSummary(context);
 
@@ -38,13 +38,13 @@ private async Task<IResult> GetAll(
             (errorCode, errors) => TypedResults.NoContent());
 
     }
-     private async Task<IResult> Get(
-         [FromRoute] int id,
-        [FromServices] IHandlerContext context,
-         [FromServices] ILogger<GetAllLanguages> logger,
-         [FromQuery] bool includeRights = false
-         
-    )
+    private async Task<IResult> Get(
+        [FromRoute] int id,
+       [FromServices] IHandlerContext context,
+        [FromServices] ILogger<GetAllLanguages> logger,
+        [FromQuery] bool includeRights = false
+
+   )
     {
         var handler = new GetRoleById(context);
         var request = new GetRoleByIdRequest
@@ -53,20 +53,19 @@ private async Task<IResult> GetAll(
             IncludeRights = includeRights
         };
         return (await HandlerBuilder.For(handler, context, logger)
-        .
-          .Build()
+           .Build()
           .HandleAsync(request))
           .Match<IResult>(
               role => role == null ? TypedResults.NotFound() : TypedResults.Ok(role),
               (errorCode, errors) => TypedResults.Empty
               );
     }
-     private async Task<IResult> AddOrUpdate(
-        [FromBody] AddOrUpdateRoleRequest request,
-        [FromServices] IHandlerContext context,
-        [FromServices] IAuditContext auditContext,
-        [FromServices] ILogger<GetAllLanguages> logger
-    )
+    private async Task<IResult> AddOrUpdate(
+       [FromBody] AddOrUpdateRoleRequest request,
+       [FromServices] IHandlerContext context,
+       [FromServices] IAuditContext auditContext,
+       [FromServices] ILogger<GetAllLanguages> logger
+   )
     {
         var handler = new AddOrUpdateRole(context, auditContext);
         return (
@@ -106,9 +105,9 @@ private async Task<IResult> GetAll(
 
     }
 
-   
 
-   
 
-    
+
+
+
 }
